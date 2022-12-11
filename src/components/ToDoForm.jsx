@@ -3,13 +3,18 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-const ToDoForm = (props) => {
+import { useDispatch } from 'react-redux'
+import { add } from '../redux/ToDoSlice'
+
+
+const ToDoForm = () => {
+  const dispatch = useDispatch()
   const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (value) { 
-      props.addToDo(value);
+      dispatch(add(value));
       setValue("");
     }
   };
