@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-//import counterReducer from '../features/counter/counterSlice'
-import todoReducer from "./ToDoSlice"
+import loginReducer from "./LoginSlice"
+import asynctodoReducer from "./AsynctodoSlice"
 
 export const store = configureStore({
   reducer: {
-    todo: todoReducer,
-  },
+    login: loginReducer,
+    asynctodo: asynctodoReducer,
+  }
 })

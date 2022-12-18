@@ -1,29 +1,30 @@
 import React, { useState } from "react";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-
+import { useDispatch, useSelector } from "react-redux";
+import { fbDellTodo, fbToggle } from "../redux/AsyncTodoSlice";
+import { selectUser } from "../redux/LoginSlice";
+import {
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Stack,
+  IconButton,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Stack from "@mui/material/Stack";
-import { IconButton } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { remove, toggle } from "../redux/ToDoSlice";
 
 const ToDo = (props) => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectUser);
   //temp :
   const [rtl, setRtl] = useState(false);
   //
-
-  const dispatch = useDispatch();
-
   const { text, completed, index } = props;
 
   const removeToDo = () => {
-    dispatch(remove(index));
+    dispatch(fbDellTodo({ currentUser, index }));
   };
 
   const toggleToDo = () => {
-    dispatch(toggle(index));
+    dispatch(fbToggle({ currentUser, index, completed }));
   };
 
   return (
@@ -33,7 +34,11 @@ const ToDo = (props) => {
         spacing={2}
         justifyContent="space-between"
       >
-        <FormGroup>
+        <FormGroup
+          sx={{
+            width: "100%",
+          }}
+        >
           <FormControlLabel
             dir={rtl ? "rtl" : "ltr"}
             control={<Checkbox onClick={toggleToDo} checked={completed} />}
@@ -41,7 +46,6 @@ const ToDo = (props) => {
             style={{ textDecoration: completed ? "line-through" : "none" }}
           />
         </FormGroup>
-
         <IconButton
           color="primary"
           aria-label="remove"

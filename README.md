@@ -1,12 +1,5 @@
 #Todo 😊
 
 React JavaScript,
-Redux,
+Redux, AsyncThunk
 Firebase and Material UI
-
-Need to-do :
-✔️ Redux
-🟨 Firebase
-🟨 RTL switcher
-🟨 FAB ?
-🟨 UI..
