@@ -1,19 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectTodo } from "../redux/ToDoSlice";
+import { selectAsyncTodo } from "../redux/AsyncTodoSlice";
+
 import ToDo from "./ToDo";
 
 const ToDoList = () => {
-  const todos = useSelector(selectTodo)
-  // const { todos, toggleToDo, removeToDo } = props;
-  const todoComponents = todos.map((todo, index) => (
+  const todos = useSelector(selectAsyncTodo)
+  const todoComponents = todos.map((todo) => (
     <ToDo
-      key={index}
-      index={index}
+      key={todo.docid}
+      index={todo.docid}
       text={todo.text}
-      completed={todo.completed ? true : false}
-      // toggleToDo={() => toggleToDo(index)}
-     // removeToDo={() => removeToDo(index)}
+      completed={todo.checked ? true : false}
     />
   ));
   return <div>{todoComponents}</div>;

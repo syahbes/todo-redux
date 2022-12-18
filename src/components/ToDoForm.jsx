@@ -1,32 +1,36 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { auth } from "../firebase/firebase";
+import { signOut } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../redux/LoginSlice";
+import { fbAddTodo } from "../redux/AsyncTodoSlice";
 
-import { useDispatch } from 'react-redux'
-import { add } from '../redux/ToDoSlice'
+import { Box, IconButton, Button, TextField, Typography } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
 
+// const temp = "VHjRKDTTCdcPiFdCV3PfI1UJJVc2"
 
 const ToDoForm = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectUser);
   const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (value) { 
-      dispatch(add(value));
+    if (value) {
+      dispatch(fbAddTodo({ currentUser, value }));
       setValue("");
     }
   };
-
   return (
-      <Box
+    <Box
       component="form"
       sx={{
         display: "flex",
         flexDirection: "row",
-        justifyContent: "center",
-        "& > :not(style)": { m: 1, width: "25ch" },
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+        // "& > :not(style)": { m: 1, width: "25ch" },
       }}
       noValidate
       autoComplete="off"
@@ -34,10 +38,11 @@ const ToDoForm = () => {
     >
       <TextField
         //  id="outlined-basic"
-        label="ToDo"
+        label="To Do..."
         variant="outlined"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        // sx={{ marginTop: "10px"}}
       />
       <Box
         sx={{
@@ -46,7 +51,27 @@ const ToDoForm = () => {
           justifyContent: "center",
         }}
       >
-        <span>name and logout</span>
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography variant="body2" gutterBottom>
+            Log out
+          </Typography>
+
+          <IconButton
+            color="primary"
+            aria-label="remove"
+            component="label"
+            size="small"
+            onClick={() => signOut(auth)}
+          >
+            <LogoutIcon />
+          </IconButton>
+        </span>
         <Button variant="outlined" size="small" type="submit">
           Add
         </Button>
