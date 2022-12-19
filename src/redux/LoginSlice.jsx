@@ -3,8 +3,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-
 import { auth } from "../firebase/firebase";
+
 export const fbLogin = createAsyncThunk(
   "users/firebaseLogin",
   async ({ email, password }) => {

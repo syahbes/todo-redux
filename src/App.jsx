@@ -51,7 +51,7 @@ const App = () => {
         sx={{
           height: "100vh",
           width: "100vw",
-          backgroundColor: "#E8EAED",
+          // backgroundColor: "#E8EAED",
           margin: 0,
         }}
       >
@@ -62,7 +62,7 @@ const App = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#fff",
+            // backgroundColor: "#00b7c3",
             // color: "white",
             gap: 2,
             // border: "1px solid red",

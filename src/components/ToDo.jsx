@@ -28,7 +28,18 @@ const ToDo = (props) => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        border: "1px solid #000",
+        borderLeft: "3px solid hotpink",
+        
+        marginBottom: "15px",
+        marginTop: "15px",
+        boxShadow: "10px 10px",          
+        borderRadius: "5px",
+        paddingLeft: "10px",
+      }}
+    >
       <Stack
         direction={rtl ? "row-reverse" : "row"}
         spacing={2}
@@ -37,6 +48,8 @@ const ToDo = (props) => {
         <FormGroup
           sx={{
             width: "100%",
+            overflow: "hidden",
+            // ":hover": { backgroundColor: "yellow" }
           }}
         >
           <FormControlLabel
