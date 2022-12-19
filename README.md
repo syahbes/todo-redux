@@ -17,13 +17,14 @@ Firebase and Material UI
 Need to-do :
 ✔️ Redux
 ✔️ Firebase
-🟨 Sign in with google
+✔️ Sign in with google
 🟨 HIDE THE .env
-🟨 dell all complete
-🟨 complete all
-🟨 change list
-🟨 dark mode switcher
-🟨
+
+🟨 Complete all
+🟨 Dell all complete
+🟨 Change to MUI List
+🟨 Dark mode switcher
+
 🟨 RTL switcher
-🟨 FAB ?
-🟨 UI..
+🟨 FAB 
+🟨 General UI

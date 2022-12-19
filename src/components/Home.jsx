@@ -23,7 +23,7 @@ const Home = () => {
         // margin: "auto",
         padding: "15px 30px",
         minHeight: "100vh",
-        backgroundColor: "#f5f5f5",
+        // backgroundColor: "#b6b6b6",
         width: "100%",
       }}
     >

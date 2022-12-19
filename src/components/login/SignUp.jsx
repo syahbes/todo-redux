@@ -6,9 +6,11 @@ import {
   Button,
 } from "@mui/material";
 import { Stack } from "@mui/system";
+import { signInWithPopup } from "firebase/auth";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { auth, provider } from "../../firebase/firebase";
 import { fbSignup } from "../../redux/LoginSlice";
 
 const CssTextField = styled(TextField)({
@@ -111,6 +113,7 @@ const SignUp = () => {
             color="secondary"
             variant="contained"
             sx={{ textTransform: "none", width: "29ch" }}
+            onClick={() => signInWithPopup(auth, provider)}
           >
             Log in with Google
           </Button>
