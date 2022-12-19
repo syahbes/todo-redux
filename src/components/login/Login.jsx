@@ -37,7 +37,9 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(fbLogin({ email, password }));
+    if (email && password) {
+      dispatch(fbLogin({ email, password }));
+    }
   };
 
   return (
@@ -115,7 +117,7 @@ const Login = () => {
           <Link
             to="/signup"
             style={{
-              // color: "hotpink",
+              color: "#29cba0",
               textDecoration: "none",
               marginLeft: 10,
             }}

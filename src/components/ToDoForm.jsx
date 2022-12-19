@@ -54,8 +54,10 @@ const ToDoForm = () => {
         <span
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            alignItems: "end",
+            justifyContent: "center",
+            gap: "10px"
+            
           }}
         >
 

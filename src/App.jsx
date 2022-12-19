@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase/firebase";
@@ -10,12 +10,31 @@ import Welcome from "./components/login/Welcome";
 import Login from "./components/login/Login";
 import SignUp from "./components/login/SignUp";
 import Home from "./components/Home";
-import { Box } from "@mui/material";
-// import CssBaseline from "@mui/material/CssBaseline";
+import { Box, Fab } from "@mui/material";
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline } from "@mui/material";
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+
+
 
 const App = () => {
+  const [themeMode, setThemeMode] = useState("dark")
+  
+  const darkTheme = createTheme({
+    palette: {
+      mode: themeMode,
+    },
+  });
+
+  const toggleTheme = () => { setThemeMode(prev=> prev === "dark" ? "light" : "dark") }
+
   const dispatch = useDispatch();
   const currentUser = useSelector(selectUser);
+
+  
+  
   //bgcolor:"#10a37f" chatGPT greenColor
 
   //listen for changes to the user auth
@@ -45,7 +64,10 @@ const App = () => {
   }, [currentUser]);
 
   return (
-    <>
+    
+  <ThemeProvider theme={darkTheme}>
+    <CssBaseline />
+    
       {/* <CssBaseline /> */}
       <Box
         sx={{
@@ -86,7 +108,22 @@ const App = () => {
           )}
         </Box>
       </Box>
-    </>
+      
+      <Fab  aria-label="light/dark mode" 
+       size="small"
+      onClick={toggleTheme}
+      style={{
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
+      }}
+      >
+      {themeMode === 'dark' ? (<LightModeIcon/>) : (<DarkModeIcon/>)}
+      </Fab>
+
+      
+    
+    </ThemeProvider>
   );
 };
 

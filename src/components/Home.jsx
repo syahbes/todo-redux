@@ -21,7 +21,7 @@ const Home = () => {
         flexDirection: "column",
         justifyContent: "start",
         // margin: "auto",
-        padding: "15px 30px",
+        padding: "15px 20px",
         minHeight: "100vh",
         // backgroundColor: "#b6b6b6",
         width: "100%",

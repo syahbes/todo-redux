@@ -13,29 +13,6 @@ import { Link } from "react-router-dom";
 import { auth, provider } from "../../firebase/firebase";
 import { fbSignup } from "../../redux/LoginSlice";
 
-const CssTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "hotpink",
-  },
-  "& label": {
-    color: "hotpink",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "hotpink",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "hotpink",
-    },
-    "&:hover fieldset": {
-      borderColor: "hotpink",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "hotpink",
-    },
-  },
-});
-
 const SignUp = () => {
   const dispatch = useDispatch();
   
@@ -43,7 +20,9 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(fbSignup({ email, password }));    
+    if (email && password) {
+    dispatch(fbSignup({ email, password }))
+    }
   };
 
   return (
@@ -68,14 +47,14 @@ const SignUp = () => {
         // noValidate
         autoComplete="off"
       >
-        <CssTextField
+        <TextField
           id="email"
           label="Email"
           variant="outlined"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
-        <CssTextField
+        <TextField
           id="password"
           label="Password"
           variant="outlined"
@@ -96,7 +75,6 @@ const SignUp = () => {
           }}
         >
           <Button
-            color="secondary"
             variant="contained"
             sx={{ textTransform: "none", width: "29ch" }}
             type="submit"
@@ -110,7 +88,6 @@ const SignUp = () => {
             <hr style={{ width: "30%", height: "1px" }} />
           </Stack>
           <Button
-            color="secondary"
             variant="contained"
             sx={{ textTransform: "none", width: "29ch" }}
             onClick={() => signInWithPopup(auth, provider)}
@@ -123,7 +100,7 @@ const SignUp = () => {
           <Link
             to="/login"
             style={{
-              color: "hotpink",
+              color: "#29cba0",
               textDecoration: "none",
               marginLeft: 10,
             }}

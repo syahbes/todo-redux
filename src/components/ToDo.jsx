@@ -8,6 +8,8 @@ import {
   Checkbox,
   Stack,
   IconButton,
+  Box,
+  Paper,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -28,14 +30,14 @@ const ToDo = (props) => {
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid #000",
+    <Paper
+      sx={{
+        // border: "1px solid",
         borderLeft: "3px solid hotpink",
-        
         marginBottom: "15px",
         marginTop: "15px",
-        boxShadow: "10px 10px",          
+        // boxShadow: "5px 5px",
+        boxShadow: 4,
         borderRadius: "5px",
         paddingLeft: "10px",
       }}
@@ -68,7 +70,7 @@ const ToDo = (props) => {
           <DeleteIcon />
         </IconButton>
       </Stack>
-    </div>
+    </Paper>
   );
 };
 
