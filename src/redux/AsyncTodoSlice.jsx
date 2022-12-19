@@ -43,16 +43,16 @@ const AsyncTodoSlice = createSlice({
   },
   extraReducers: (builder) => {
     //addTodo
-    builder.addCase(fbAddTodo.fulfilled, (state, action) => {
-      // console.log("added Todo:", action.payload);
-      // state.todosValue = action.payload;
-      // state.loading = false;
-      // state.error = null;
-    });
-    builder.addCase(fbAddTodo.pending, (state, action) => {
-      // state.pending = true;
-      //   console.log("panding Todo:", action.payload);
-    }),
+    // builder.addCase(fbAddTodo.fulfilled, (state, action) => {
+    //   // console.log("added Todo:", action.payload);
+    //   // state.todosValue = action.payload;
+    //   // state.loading = false;
+    //   // state.error = null;
+    // });
+    // builder.addCase(fbAddTodo.pending, (state, action) => {
+    //   // state.pending = true;
+    //   //   console.log("panding Todo:", action.payload);
+    // }),
       builder.addCase(fbAddTodo.rejected, (state, action) => {
         // state.loading = false;
         state.error = action.error;

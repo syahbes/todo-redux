@@ -58,9 +58,6 @@ const ToDoForm = () => {
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="body2" gutterBottom>
-            Log out
-          </Typography>
 
           <IconButton
             color="primary"
@@ -71,6 +68,9 @@ const ToDoForm = () => {
           >
             <LogoutIcon />
           </IconButton>
+          <Typography variant="body2" gutterBottom>
+            Sign out
+          </Typography>
         </span>
         <Button variant="outlined" size="small" type="submit">
           Add

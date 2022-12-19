@@ -15,6 +15,7 @@
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.11.0",
     "@reduxjs/toolkit": "^1.9.1",
+    "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",

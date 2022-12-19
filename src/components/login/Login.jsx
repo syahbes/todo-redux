@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fbLogin } from "../../redux/LoginSlice";
+import { auth, provider } from "../../firebase/firebase";
+import { signInWithPopup } from "firebase/auth";
 
 const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
@@ -103,6 +105,7 @@ const Login = () => {
           <Button
             variant="contained"
             sx={{ textTransform: "none", width: "29ch" }}
+            onClick={() => signInWithPopup(auth, provider)}
           >
             Log in with Google
           </Button>
