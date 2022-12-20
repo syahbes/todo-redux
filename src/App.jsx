@@ -4,14 +4,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase/firebase";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, updateUser } from "./redux/LoginSlice";
+import { selectUser, updateUser, selectLoading } from "./redux/LoginSlice";
 import { updateValue } from "./redux/AsyncTodoSlice";
 import Welcome from "./components/login/Welcome";
 import Login from "./components/login/Login";
 import SignUp from "./components/login/SignUp";
 import Home from "./components/Home";
 import { Box, Fab } from "@mui/material";
-import Loading from "./components/login/Loading"
+import Loading from "./components/login/Loading";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
@@ -19,37 +19,29 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 
 const App = () => {
+  const loading = useSelector(selectLoading);
+  const currentUser = useSelector(selectUser);
+  const dispatch = useDispatch();
   const [themeMode, setThemeMode] = useState("dark");
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-  }, []);
 
   const darkTheme = createTheme({
     palette: {
       mode: themeMode,
     },
   });
-
   const toggleTheme = () => {
     setThemeMode((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
-  const dispatch = useDispatch();
-  const currentUser = useSelector(selectUser);
-
-  //bgcolor:"#10a37f" chatGPT greenColor
-
   //listen for changes to the user auth
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      dispatch(updateUser(user ? user.uid : false));
+      //timer for better ux when loading while logged in
+      setTimeout(() => {
+        dispatch(updateUser(user ? user.uid : false));
+      }, 1500);
     });
   }, []);
-
   //listen for changes to the values
   useEffect(() => {
     if (currentUser) {
@@ -76,60 +68,59 @@ const App = () => {
         <Loading />
       ) : (
         <>
-      {/* <CssBaseline /> */}
-      <Box
-        sx={{
-          height: "100vh",
-          width: "100vw",
-          // backgroundColor: "#E8EAED",
-          margin: 0,
-        }}
-      >
-        <Box
-          sx={{
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            // backgroundColor: "#00b7c3",
-            // color: "white",
-            gap: 2,
-            // border: "1px solid red",
-            maxWidth: "640px",
-            margin: "0 auto",
-          }}
-        >
-          {currentUser ? (
-            <Home />
-          ) : (
-            <Routes>
-              <Route path="/" element={<Outlet />}>
-                <Route index element={<Welcome />} />
-                <Route path="welcome" element={<Welcome />} />
-                <Route path="login" element={<Login />} />
-                <Route path="signup" element={<SignUp />} />
-                <Route path="home" element={<Home />} />
-                {/* <Route path="*" element={<NoPage />} /> */}
-              </Route>
-            </Routes>
-          )}
-        </Box>
-      </Box>
+          <Box
+            sx={{
+              height: "100vh",
+              width: "100vw",
+              // backgroundColor: "#E8EAED",
+              margin: 0,
+            }}
+          >
+            <Box
+              sx={{
+                height: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                // backgroundColor: "#00b7c3",
+                // color: "white",
+                gap: 2,
+                // border: "1px solid red",
+                maxWidth: "640px",
+                margin: "0 auto",
+              }}
+            >
+              {currentUser ? (
+                <Home />
+              ) : (
+                <Routes>
+                  <Route path="/" element={<Outlet />}>
+                    <Route index element={<Welcome />} />
+                    <Route path="welcome" element={<Welcome />} />
+                    <Route path="login" element={<Login />} />
+                    <Route path="signup" element={<SignUp />} />
+                    <Route path="home" element={<Home />} />
+                    {/* <Route path="*" element={<NoPage />} /> */}
+                  </Route>
+                </Routes>
+              )}
+            </Box>
+          </Box>
 
-      <Fab
-        aria-label="light/dark mode"
-        size="small"
-        onClick={toggleTheme}
-        style={{
-          position: "fixed",
-          bottom: 10,
-          right: 10,
-        }}
-      >
-        {themeMode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
-      </Fab>
-      </>
+          <Fab
+            aria-label="light/dark mode"
+            size="small"
+            onClick={toggleTheme}
+            style={{
+              position: "fixed",
+              bottom: 10,
+              right: 10,
+            }}
+          >
+            {themeMode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
+          </Fab>
+        </>
       )}
     </ThemeProvider>
   );

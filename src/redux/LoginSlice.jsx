@@ -27,7 +27,7 @@ export const fbSignup = createAsyncThunk(
 
 const initialState = {
   currentUser: null,
-  loading: false,
+  loading: true,
   error: null,
 };
 
@@ -37,6 +37,7 @@ const LoginSlice = createSlice({
   reducers: {
     updateUser: (state, action) => {
       state.currentUser = action.payload;
+      state.loading = false;
     },
   },
   extraReducers: (builder) => {
@@ -73,4 +74,5 @@ const LoginSlice = createSlice({
 
 export const { updateUser } = LoginSlice.actions;
 export const selectUser = (state) => state.login.currentUser;
+export const selectLoading = (state) => state.login.loading;
 export default LoginSlice.reducer;
