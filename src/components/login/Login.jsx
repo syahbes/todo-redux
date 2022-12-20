@@ -7,29 +7,6 @@ import { fbLogin } from "../../redux/LoginSlice";
 import { auth, provider } from "../../firebase/firebase";
 import { signInWithPopup } from "firebase/auth";
 
-const CssTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "hotpink",
-  },
-  "& label": {
-    color: "hotpink",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "hotpink",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "hotpink",
-    },
-    "&:hover fieldset": {
-      borderColor: "hotpink",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "hotpink",
-    },
-  },
-});
-
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -80,9 +57,9 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <Typography variant="body2" gutterBottom>
+        {/* <Typography variant="body2" gutterBottom>
           Forgot password?
-        </Typography>
+        </Typography> */}
         <Box
           sx={{
             display: "flex",

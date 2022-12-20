@@ -11,30 +11,36 @@ import Login from "./components/login/Login";
 import SignUp from "./components/login/SignUp";
 import Home from "./components/Home";
 import { Box, Fab } from "@mui/material";
+import Loading from "./components/login/Loading"
 
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
-
-
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 const App = () => {
-  const [themeMode, setThemeMode] = useState("dark")
-  
+  const [themeMode, setThemeMode] = useState("dark");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, []);
+
   const darkTheme = createTheme({
     palette: {
       mode: themeMode,
     },
   });
 
-  const toggleTheme = () => { setThemeMode(prev=> prev === "dark" ? "light" : "dark") }
+  const toggleTheme = () => {
+    setThemeMode((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   const dispatch = useDispatch();
   const currentUser = useSelector(selectUser);
 
-  
-  
   //bgcolor:"#10a37f" chatGPT greenColor
 
   //listen for changes to the user auth
@@ -64,10 +70,12 @@ const App = () => {
   }, [currentUser]);
 
   return (
-    
-  <ThemeProvider theme={darkTheme}>
-    <CssBaseline />
-    
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
       {/* <CssBaseline /> */}
       <Box
         sx={{
@@ -108,21 +116,21 @@ const App = () => {
           )}
         </Box>
       </Box>
-      
-      <Fab  aria-label="light/dark mode" 
-       size="small"
-      onClick={toggleTheme}
-      style={{
-        position: 'absolute',
-        bottom: 10,
-        right: 10,
-      }}
-      >
-      {themeMode === 'dark' ? (<LightModeIcon/>) : (<DarkModeIcon/>)}
-      </Fab>
 
-      
-    
+      <Fab
+        aria-label="light/dark mode"
+        size="small"
+        onClick={toggleTheme}
+        style={{
+          position: "fixed",
+          bottom: 10,
+          right: 10,
+        }}
+      >
+        {themeMode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
+      </Fab>
+      </>
+      )}
     </ThemeProvider>
   );
 };
