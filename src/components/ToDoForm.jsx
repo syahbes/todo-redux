@@ -3,12 +3,9 @@ import { auth } from "../firebase/firebase";
 import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../redux/LoginSlice";
-import { fbAddTodo } from "../redux/AsyncTodoSlice";
-
+import { fbAddTodo, updateValue } from "../redux/AsyncTodoSlice";
 import { Box, IconButton, Button, TextField, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-
-// const temp = "VHjRKDTTCdcPiFdCV3PfI1UJJVc2"
 
 const ToDoForm = () => {
   const dispatch = useDispatch();
@@ -22,6 +19,20 @@ const ToDoForm = () => {
       setValue("");
     }
   };
+
+  
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      // Sign-out successful. You can add any additional logic here, such as updating the UI or navigating to a different page.
+      dispatch(updateValue([]));
+
+    } catch (error) {
+      // An error happened. You can add any error handling logic here.
+    }
+  };
+  
+
   return (
     <Box
       component="form"
@@ -66,7 +77,7 @@ const ToDoForm = () => {
             aria-label="remove"
             component="label"
             size="small"
-            onClick={() => signOut(auth)}
+            onClick={handleSignOut}
           >
             <LogoutIcon />
           </IconButton>
