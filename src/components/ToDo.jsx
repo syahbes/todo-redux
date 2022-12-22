@@ -38,7 +38,7 @@ const ToDo = (props) => {
           borderLeft: "3px solid hotpink",
         }}
       >
-        <Button fullWidth sx={{ color: "text.secondary" }}>
+        <Button fullWidth sx={{ color: "text.secondary", textTransform: "none" }}>
           <FormGroup
             sx={{
               width: "100%",
@@ -48,7 +48,7 @@ const ToDo = (props) => {
             <FormControlLabel
               control={<Checkbox onClick={toggleToDo} checked={completed} />}
               label={text}
-              style={{ textDecoration: completed ? "line-through" : "none" }}
+              style={{ textDecoration: completed ? "line-through" : "none"}}
             />
           </FormGroup>
           <IconButton

@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase/firebase";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, updateUser, selectLoading } from "./redux/LoginSlice";
+import { selectUser, updateUser, selectLoading, updateLoadin } from "./redux/LoginSlice";
 import { updateValue } from "./redux/AsyncTodoSlice";
 import Welcome from "./components/login/Welcome";
 import Login from "./components/login/Login";
@@ -41,9 +41,10 @@ const App = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       //timer for better ux when loading while logged in
+      // dispatch(updateLoadin(true))
       setTimeout(() => {
         dispatch(updateUser(user ? user.uid : false));
-      }, 1500);
+      }, 1000);
     });
   }, []);
   //listen for changes to the values
@@ -129,7 +130,7 @@ const App = () => {
       )}
       <ToastContainer
         position="bottom-center"
-        autoClose={5000}
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -137,7 +138,7 @@ const App = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme={themeMode}
       />
     </ThemeProvider>
   );

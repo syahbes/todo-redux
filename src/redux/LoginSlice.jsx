@@ -4,7 +4,13 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
-import { auth } from "../firebase/firebase";
+import { auth, provider } from "../firebase/firebase";
+import { signInWithPopup } from "firebase/auth";
+
+export const fbLoginWithpopup = createAsyncThunk("popupLogin", async () => {
+  const userPopup = await signInWithPopup(auth, provider);
+  return userPopup;
+});
 
 export const fbLogin = createAsyncThunk(
   "users/firebaseLogin",
@@ -28,13 +34,13 @@ export const fbSignup = createAsyncThunk(
 const notify = (text) =>
   toast.error(text, {
     position: "bottom-center",
-    autoClose: 5000,
+    autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "dark",
+    // theme: "dark",
   });
 
 const initialState = {
@@ -51,6 +57,9 @@ const LoginSlice = createSlice({
       state.currentUser = action.payload;
       state.loading = false;
     },
+    updateLoadin: (state, action) => { 
+      state.loading = action.payload
+    }
   },
   extraReducers: (builder) => {
     // Login
@@ -82,11 +91,27 @@ const LoginSlice = createSlice({
         state.error = action.error;
         // console.log("Handle this SIGNUP error:", state.error.message);
         notify(state.error.message);
+      }),
+      //signing popoup fbLoginWithpopup
+      builder.addCase(fbLoginWithpopup.fulfilled, (state, action) => {
+        // state.currentUser = action.payload;
+        // state.loading = false;
+        state.error = null;
       });
+      builder.addCase(fbLoginWithpopup.pending, (state) => {
+        state.loading = true;
+      }),
+        builder.addCase(fbLoginWithpopup.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.error;
+          // console.log("Handle this SIGNUP error:", state.error.message);
+          notify(state.error.message);
+        })
+
   },
 });
 
-export const { updateUser } = LoginSlice.actions;
+export const { updateUser, updateLoadin } = LoginSlice.actions;
 export const selectUser = (state) => state.login.currentUser;
 export const selectLoading = (state) => state.login.loading;
 export default LoginSlice.reducer;
