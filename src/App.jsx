@@ -18,6 +18,10 @@ import { CssBaseline } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 const App = () => {
   const loading = useSelector(selectLoading);
   const currentUser = useSelector(selectUser);
@@ -63,6 +67,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={darkTheme}>
+      
       <CssBaseline />
       {loading ? (
         <Loading />
@@ -122,6 +127,18 @@ const App = () => {
           </Fab>
         </>
       )}
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </ThemeProvider>
   );
 };

@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     {/* <ThemeProvider theme={darkTheme}>
     <CssBaseline /> */}
     <BrowserRouter>
-      <App />
+     <App />
     </BrowserRouter>
     {/* </ThemeProvider> */}
   </Provider>

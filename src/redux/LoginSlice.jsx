@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { toast } from "react-toastify";
 import { auth } from "../firebase/firebase";
 
 export const fbLogin = createAsyncThunk(
@@ -24,6 +25,17 @@ export const fbSignup = createAsyncThunk(
     return user.user.uid;
   }
 );
+const notify = (text) =>
+  toast.error(text, {
+    position: "bottom-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
 
 const initialState = {
   currentUser: null,
@@ -48,12 +60,13 @@ const LoginSlice = createSlice({
       state.error = null;
     });
     builder.addCase(fbLogin.pending, (state) => {
-      state.pending = true;
+      state.loading = true;
     }),
       builder.addCase(fbLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error;
-        console.log("Handle this LOGIN error:", state.error.message);
+        // console.log("Handle this LOGIN error:", state.error.message);
+        notify(state.error.message);
       });
     //SignUp
     builder.addCase(fbSignup.fulfilled, (state, action) => {
@@ -62,13 +75,14 @@ const LoginSlice = createSlice({
       state.error = null;
     });
     builder.addCase(fbSignup.pending, (state) => {
-      state.pending = true;
+      state.loading = true;
     }),
       builder.addCase(fbSignup.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error;
-        console.log("Handle this SIGNUP error:", state.error.message);
-      })
+        // console.log("Handle this SIGNUP error:", state.error.message);
+        notify(state.error.message);
+      });
   },
 });
 
