@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase/firebase";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, updateUser, selectLoading } from "./redux/LoginSlice";
+import { selectUser, updateUser, selectLoading, updateLoadin } from "./redux/LoginSlice";
 import { updateValue } from "./redux/AsyncTodoSlice";
 import Welcome from "./components/login/Welcome";
 import Login from "./components/login/Login";
@@ -17,6 +17,10 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const App = () => {
   const loading = useSelector(selectLoading);
@@ -37,9 +41,10 @@ const App = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       //timer for better ux when loading while logged in
+      // dispatch(updateLoadin(true))
       setTimeout(() => {
         dispatch(updateUser(user ? user.uid : false));
-      }, 1500);
+      }, 1000);
     });
   }, []);
   //listen for changes to the values
@@ -63,6 +68,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={darkTheme}>
+      
       <CssBaseline />
       {loading ? (
         <Loading />
@@ -122,6 +128,18 @@ const App = () => {
           </Fab>
         </>
       )}
+      <ToastContainer
+        position="bottom-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={themeMode}
+      />
     </ThemeProvider>
   );
 };

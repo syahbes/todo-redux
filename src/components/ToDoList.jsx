@@ -1,3 +1,4 @@
+import { Stack } from "@mui/system";
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectAsyncTodo } from "../redux/AsyncTodoSlice";
@@ -5,7 +6,7 @@ import { selectAsyncTodo } from "../redux/AsyncTodoSlice";
 import ToDo from "./ToDo";
 
 const ToDoList = () => {
-  const todos = useSelector(selectAsyncTodo)
+  const todos = useSelector(selectAsyncTodo);
   const todoComponents = todos.map((todo) => (
     <ToDo
       key={todo.docid}
@@ -14,7 +15,7 @@ const ToDoList = () => {
       completed={todo.checked ? true : false}
     />
   ));
-  return <div>{todoComponents}</div>;
+  return   <Stack spacing={1.5} marginTop={2}>{todoComponents}</Stack>;
 };
 
 export default ToDoList;

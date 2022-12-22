@@ -1,30 +1,21 @@
-import {
-  styled,
-  Box,
-  Typography,
-  TextField,
-  Button,
-} from "@mui/material";
-import { Stack } from "@mui/system";
-import { signInWithPopup } from "firebase/auth";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { fbSignup, fbLoginWithpopup } from "../../redux/LoginSlice";
+
+import { Box, Typography, TextField, Button } from "@mui/material";
+import { Stack } from "@mui/system";
 import { Link } from "react-router-dom";
-import { auth, provider } from "../../firebase/firebase";
-import { fbSignup } from "../../redux/LoginSlice";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email && password) {
-    dispatch(fbSignup({ email, password }))
+      dispatch(fbSignup({ email, password }));
     }
   };
-
   return (
     <Box
       sx={{
@@ -90,7 +81,7 @@ const SignUp = () => {
           <Button
             variant="contained"
             sx={{ textTransform: "none", width: "29ch" }}
-            onClick={() => signInWithPopup(auth, provider)}
+            onClick={() => dispatch(fbLoginWithpopup())}
           >
             Log in with Google
           </Button>
