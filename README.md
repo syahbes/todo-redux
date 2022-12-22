@@ -10,6 +10,11 @@ This project is a to-do list that demonstrates the use of Redux and Firebase in 
 - React Router
 - Firebase
 - Material UI
+- React-Toastify
 - dotenv
 
 ## Live at :
+http://127.0.0.1:5173/
+
+![image](https://user-images.githubusercontent.com/99732661/209230481-2070a97b-ae9c-4e8f-aa97-223b1f5b3cee.png)
+![image](https://user-images.githubusercontent.com/99732661/209230500-da7d7189-5b81-464e-bb91-e597ceb84dec.png)
