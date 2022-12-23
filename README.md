@@ -15,6 +15,5 @@ This project is a to-do list that demonstrates the use of Redux and Firebase in 
 
 ## Live at :
 https://todo3-redux-firebase.netlify.app
-
-![image](https://user-images.githubusercontent.com/99732661/209230481-2070a97b-ae9c-4e8f-aa97-223b1f5b3cee.png)
+![image](https://user-images.githubusercontent.com/99732661/209281355-7e93b459-a938-4870-b32a-d08449d3994a.png)
 ![image](https://user-images.githubusercontent.com/99732661/209230500-da7d7189-5b81-464e-bb91-e597ceb84dec.png)
