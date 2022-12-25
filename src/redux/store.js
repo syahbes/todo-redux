@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import loginReducer from "./LoginSlice"
-import asynctodoReducer from "./AsynctodoSlice"
+import asynctodoReducer from "./AsyncTodoSlice"
 
 export const store = configureStore({
   reducer: {
